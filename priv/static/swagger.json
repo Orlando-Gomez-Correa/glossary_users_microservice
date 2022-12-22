@@ -1,0 +1,381 @@
+{
+  "definitions": {
+    "Error": {
+      "description": "Error responses from the API",
+      "properties": {
+        "error": {
+          "description": "The message of the error raised",
+          "type": "string"
+        }
+      },
+      "required": [
+        "error"
+      ],
+      "title": "Errors",
+      "type": "object"
+    },
+    "User": {
+      "description": "A user of the application",
+      "example": {
+        "auth0_id": "auth0|63a07963aacda015264805a3",
+        "birthday": "29/Oct/2000",
+        "email": "denissefc1@gmail.com",
+        "id": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
+        "image": {
+          "file_name": "avatar_mujer.png",
+          "updated_at": "2022-12-16T15:55:28"
+        },
+        "inserted_at": "2022-12-16T15:55:28.538401",
+        "is_admin": true,
+        "language": "spanish",
+        "lastname": "Resendiz",
+        "middlename": "Karina",
+        "name": "Alondra",
+        "phone": "+524271145588",
+        "second_lastname": "Alvarez",
+        "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
+        "updated_at": "2022-12-16T15:55:28.538401"
+      },
+      "properties": {
+        "auth0_id": {
+          "description": "User ID in Auth0",
+          "type": "string"
+        },
+        "birthday": {
+          "description": "User birthday",
+          "type": "string"
+        },
+        "email": {
+          "description": "Email address",
+          "format": "email",
+          "type": "string"
+        },
+        "id": {
+          "description": "User ID",
+          "type": "string"
+        },
+        "image": {
+          "description": "User name",
+          "type": "string"
+        },
+        "inserted_at": {
+          "description": "When was the activity initially inserted",
+          "format": "datetime",
+          "type": "string"
+        },
+        "is_admin": {
+          "description": "User name",
+          "type": "boolean"
+        },
+        "language": {
+          "description": "User language",
+          "type": "string"
+        },
+        "lastname": {
+          "description": "User lastname",
+          "type": "string"
+        },
+        "middlename": {
+          "description": "User middlename",
+          "type": "string"
+        },
+        "name": {
+          "description": "User name",
+          "type": "string"
+        },
+        "phone": {
+          "description": "User phone",
+          "type": "string"
+        },
+        "second_lastname": {
+          "description": "User second lastname",
+          "type": "string"
+        },
+        "timezone": {
+          "description": "User timezone",
+          "type": "string"
+        },
+        "updated_at": {
+          "description": "When was the activity last updated",
+          "format": "datetime",
+          "type": "string"
+        }
+      },
+      "required": [
+        "is_admin",
+        "email",
+        "phone",
+        "lastname",
+        "name"
+      ],
+      "title": "User",
+      "type": "object"
+    },
+    "UserRequest": {
+      "description": "POST body for creating a user",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/User",
+          "description": "The user details"
+        }
+      },
+      "title": "UserRequest",
+      "type": "object"
+    },
+    "UserResponse": {
+      "description": "Response schema for single user",
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/User",
+          "description": "The user details"
+        }
+      },
+      "title": "UserResponse",
+      "type": "object"
+    },
+    "UsersResponse": {
+      "description": "Response schema for multiple users",
+      "properties": {
+        "data": {
+          "description": "The users details",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "UsersReponse",
+      "type": "object"
+    }
+  },
+  "host": "localhost:4000",
+  "info": {
+    "contact": {
+      "email": "orlando@cordage.io",
+      "name": "Orlando Gomez"
+    },
+    "description": "API Documentation for GreenHouse API v1",
+    "termsOfService": "Open for public",
+    "title": "Users GreenHouse API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/users": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Creates a new user",
+        "operationId": "GreenhouseWeb.UserController.create",
+        "parameters": [
+          {
+            "description": "The user details",
+            "in": "body",
+            "name": "user",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/UserRequest"
+            },
+            "x-example": {
+              "user": {
+                "birthday": "15/Nov/2000",
+                "email": "gomez.c.orlando@gmail.com",
+                "image": "/home/orlando/Pictures/avatar_mujer.png",
+                "is_admin": "true",
+                "language": "spanish",
+                "lastname": "Resendiz",
+                "middlename": "KArina",
+                "name": "Alondra",
+                "phone": "+524271145588",
+                "second_lastname": "Alvarez",
+                "timezone": "UTC/GMT -6 hours Mexico Guadalajara"
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "User created OK",
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "summary": "Create user",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/users/{id}": {
+      "get": {
+        "description": "Show a user by ID",
+        "operationId": "GreenhouseWeb.UserController.show_user",
+        "parameters": [
+          {
+            "description": "User ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "auth0_id": "auth0|63a07963aacda015264805a3",
+                  "birthday": "29/Oct/2000",
+                  "email": "denissefc1@gmail.com",
+                  "id": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
+                  "image": {
+                    "file_name": "avatar_mujer.png",
+                    "updated_at": "2022-12-16T15:55:28"
+                  },
+                  "inserted_at": "2022-12-16T15:55:28.538401",
+                  "is_admin": true,
+                  "language": "spanish",
+                  "lastname": "Resendiz",
+                  "middlename": "Karina",
+                  "name": "Alondra",
+                  "phone": "+524271145588",
+                  "second_lastname": "Alvarez",
+                  "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
+                  "updated_at": "2022-12-16T15:55:28.538401"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/UserResponse"
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "summary": "Show User",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/users?page={page}&page_size={size}": {
+      "get": {
+        "deprecated": false,
+        "description": "List all users in the database",
+        "operationId": "GreenhouseWeb.UserController.index",
+        "parameters": [
+          {
+            "description": "Page number to be displayed",
+            "in": "path",
+            "name": "page",
+            "required": true,
+            "type": "integer",
+            "x-example": 2
+          },
+          {
+            "description": "Total number of entries per page",
+            "in": "path",
+            "name": "size",
+            "required": true,
+            "type": "integer",
+            "x-example": 10
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "examples": {
+              "application/json": {
+                "data": [
+                  {
+                    "auth0_id": "auth0|63a07963aacda015264805a3",
+                    "birthday": "29/Oct/2000",
+                    "email": "denissefc1@gmail.com",
+                    "id": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
+                    "image": {
+                      "file_name": "avatar_mujer.png",
+                      "updated_at": "2022-12-16T15:55:28"
+                    },
+                    "inserted_at": "2022-12-16T15:55:28.538401",
+                    "is_admin": true,
+                    "language": "spanish",
+                    "lastname": "Resendiz",
+                    "middlename": "Karina",
+                    "name": "Alondra",
+                    "phone": "+524271145588",
+                    "second_lastname": "Alvarez",
+                    "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
+                    "updated_at": "2022-12-16T15:55:28.538401"
+                  },
+                  {
+                    "auth0_id": "auth0|895a07963aacda015264805a3",
+                    "birthday": "14/Nov/2000",
+                    "email": "ariel.ti19@gmail.com",
+                    "id": "3d47122c-295c-466a-a3b8-c78c2145170d",
+                    "image": {
+                      "file_name": "avatar_hombre.png",
+                      "updated_at": "2022-12-08T18:15:39"
+                    },
+                    "inserted_at": "2022-12-08T18:15:39.367744",
+                    "is_admin": false,
+                    "language": "spanish",
+                    "lastname": "Perez",
+                    "middlename": "Ariel",
+                    "name": "Carlos",
+                    "phone": "+524271127755",
+                    "second_lastname": "Cantero",
+                    "timezone": "UTC/GMT -6 hours",
+                    "updated_at": "2022-12-08T18:15:39.367744"
+                  }
+                ]
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/UsersResponse"
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "examples": {
+              "application/json": {
+                "data": {
+                  "error": "There are no users"
+                }
+              }
+            },
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "summary": "List all recorded activities",
+        "tags": [
+          "User"
+        ]
+      }
+    }
+  },
+  "swagger": "2.0"
+}
