@@ -319,10 +319,7 @@ defmodule GreenhouseWeb.UserController do
     page = params["page"] || 1
     page_size = params["page_size"] || 1
 
-    # Accounts.list_users(:paged, page)
-    users =
-      Accounts.list_users(:paged, page, page_size)
-      |> IO.inspect()
+    users = Accounts.list_users(:paged, page, page_size)
 
     case users != [] do
       true ->
