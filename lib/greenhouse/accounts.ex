@@ -11,12 +11,9 @@ defmodule Greenhouse.Accounts do
 
   @doc """
   Returns the list of users.
-
   ## Examples
-
       iex> list_users()
       [%User{}, ...]
-
   """
 
   # def list_users_test(params) do
@@ -47,17 +44,12 @@ defmodule Greenhouse.Accounts do
 
   @doc """
   Gets a single user.
-
   Raises `Ecto.NoResultsError` if the User does not exist.
-
   ## Examples
-
       iex> get_user!(123)
       %User{}
-
       iex> get_user!(456)
       ** (Ecto.NoResultsError)
-
   """
   def get_user!(id), do: Repo.get!(User, id)
 
@@ -69,15 +61,11 @@ defmodule Greenhouse.Accounts do
 
   @doc """
   Creates a user.
-
   ## Examples
-
       iex> create_user(%{field: value})
       {:ok, %User{}}
-
       iex> create_user(%{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def create_user(params) do
     %User{}
@@ -111,15 +99,11 @@ defmodule Greenhouse.Accounts do
 
   @doc """
   Updates a user.
-
   ## Examples
-
       iex> update_user(user, %{field: new_value})
       {:ok, %User{}}
-
       iex> update_user(user, %{field: bad_value})
       {:error, %Ecto.Changeset{}}
-
   """
   def update_user(%User{} = user, attrs) do
     user
@@ -133,15 +117,11 @@ defmodule Greenhouse.Accounts do
 
   @doc """
   Deletes a user.
-
   ## Examples
-
       iex> delete_user(user)
       {:ok, %User{}}
-
       iex> delete_user(user)
       {:error, %Ecto.Changeset{}}
-
   """
   def delete_user(%User{} = user) do
     Auth.delete_user(user.auth0_id)
@@ -150,12 +130,9 @@ defmodule Greenhouse.Accounts do
 
   @doc """
   Returns an `%Ecto.Changeset{}` for tracking user changes.
-
   ## Examples
-
       iex> change_user(user)
       %Ecto.Changeset{data: %User{}}
-
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
@@ -196,7 +173,11 @@ defmodule Greenhouse.Accounts do
   end
 
   def page(query, page, per_page) when is_binary(page) do
-    query(query, page, per_page)
+    page(query, String.to_integer(page), per_page)
+  end
+
+  def page(query, page, per_page) when is_binary(per_page) do
+    page(query, page, String.to_integer(per_page))
   end
 
   def page(query, page, per_page) do

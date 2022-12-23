@@ -318,20 +318,17 @@ defmodule GreenhouseWeb.UserController do
   def index(conn, params) do
     page = params["page"] || 1
     page_size = params["page_size"] || 1
-    users = Accounts.list_users(:paged, page, page_size)
+
+    # Accounts.list_users(:paged, page)
+    users =
+      Accounts.list_users(:paged, page, page_size)
+      |> IO.inspect()
 
     case users != [] do
       true ->
-        total_count = Accounts.count_users()
-
         conn
         |> put_status(:ok)
-        |> render("index.json", %{
-          page: page,
-          page_size: page_size,
-          total_count: total_count,
-          users: users
-        })
+        |> render("index.json", users: users)
 
       false ->
         conn

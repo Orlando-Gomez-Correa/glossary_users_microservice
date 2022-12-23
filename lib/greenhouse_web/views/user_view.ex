@@ -5,17 +5,17 @@ defmodule GreenhouseWeb.UserView do
     %{data: render_one(user, __MODULE__, "user.json")}
   end
 
-  def render("index.json", %{
-        users: users,
-        total_count: total_count,
-        page: page,
-        page_size: page_size
-      }) do
+  def render("index.json", %{users: users}) do
     %{
-      total_count: total_count,
-      page: page,
-      page_size: page_size,
-      users: render_many(users, __MODULE__, "user.json")
+      first: users.first,
+      has_next: users.has_next,
+      has_prev: users.has_prev,
+      last: users.last,
+      users: render_many(users.list, __MODULE__, "user.json"),
+      next_page: users.next_page,
+      page: users.page,
+      prev_page: users.prev_page,
+      total_count: users.total_count
     }
   end
 
