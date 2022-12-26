@@ -85,6 +85,9 @@ defmodule Greenhouse.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      swagger: [
+        "phx.swagger.generate priv/static/swagger.json --router GreenhouseWeb.Router --endpoint GreenhouseWeb.Endpoint"
+      ],
       "assets.deploy": ["esbuild default --minify", "phx.digest"]
     ]
   end

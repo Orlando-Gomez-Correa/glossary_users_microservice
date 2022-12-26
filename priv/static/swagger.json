@@ -1,5 +1,148 @@
 {
   "definitions": {
+    "CreateUserPasswordRequest": {
+      "description": "POST body for creating a user password",
+      "example": {
+        "password": "C0c@C0l@7952",
+        "password_confirmation": "C0c@C0l@7952",
+        "token": "SFMyNTY.g2gDdAAAABJkAAhfX21ldGFfX3QAAAAGZAAKX19zdHJ1Y3RfX2QAG0VsaXhpci5FY3RvLlNjaGVtYS5NZXRhZGF0YWQAB2NvbnRleHRkAANuaWxkAAZwcmVmaXhkAANuaWxkAAZzY2hlbWFkAB9FbGl4aXIuR3JlZW5ob3VzZS5BY2NvdW50cy5Vc2VyZAAGc291cmNlbQAAAAV1c2Vyc2QABXN0YXRlZAAGbG9hZGVkZAAIYXV0aDBfaWRkAANuaWxkAAhiaXJ0aGRheW0AAAALMTUvTm92LzE5OThkAAVlbWFpbG0AAAAZZ29tZXouYy5vcmxhbmRvQGdtYWlsLmNvbWQAAmlkbQAAACQ4NTFmZTM2OC1jMzQ1LTRlYzQtODAyOS1lMTdhMDM0YjMxNGFkAAVpbWFnZWQAA25pbGQAC2luc2VydGVkX2F0dAAAAAlkAApfX3N0cnVjdF9fZAAURWxpeGlyLk5haXZlRGF0ZVRpbWVkAAhjYWxlbmRhcmQAE0VsaXhpci5DYWxlbmRhci5JU09kAANkYXlhFmQABGhvdXJhEGQAC21pY3Jvc2Vjb25kaAJiAAXzn2EGZAAGbWludXRlYQVkAAVtb250aGEMZAAGc2Vjb25kYQdkAAR5ZWFyYgAAB-ZkAAhpc19hZG1pbmQABHRydWVkAAhsYW5ndWFnZW0AAAAHc3BhbmlzaGQACGxhc3RuYW1lbQAAAAVHb21lemQACm1pZGRsZW5hbWVkAANuaWxkAARuYW1lbQAAAAdPcmxhbmRvZAAIcGFzc3dvcmRkAANuaWxkABVwYXNzd29yZF9jb25maXJtYXRpb25kAANuaWxkAAVwaG9uZW0AAAANKzUyNDI3ODg4OTkyMWQAD3NlY29uZF9sYXN0bmFtZW0AAAAGQ29ycmVhZAAIdGltZXpvbmVtAAAAI1VUQy9HTVQgLTYgaG91cnMgTWV4aWNvIEd1YWRhbGFqYXJhZAAKdXBkYXRlZF9hdHQAAAAJZAAKX19zdHJ1Y3RfX2QAFEVsaXhpci5OYWl2ZURhdGVUaW1lZAAIY2FsZW5kYXJkABNFbGl4aXIuQ2FsZW5kYXIuSVNPZAADZGF5YRZkAARob3VyYRBkAAttaWNyb3NlY29uZGgCYgAF859hBmQABm1pbnV0ZWEFZAAFbW9udGhhDGQABnNlY29uZGEHZAAEeWVhcmIAAAfmbgYAv8iUOoUBYgABUYA.FFYVgzcyfMGilXtwq2wKQe0GmweDw5ARC-UA7jNZodo"
+      },
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/User",
+          "description": "The user password details"
+        }
+      },
+      "title": "CreateUserPasswordRequest",
+      "type": "object"
+    },
+    "CreateUserPasswordRespond": {
+      "description": "Response schema for user password confirm",
+      "example": {
+        "message": "User confirmed",
+        "success": true
+      },
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/User",
+          "description": "The user details created"
+        }
+      },
+      "title": "CreateUserPasswordRespond",
+      "type": "object"
+    },
+    "CreateUserPasswordRespondErrors": {
+      "description": "Response errors from create user",
+      "example": {
+        "password": "can't be blank",
+        "password_confirmation": "can't be blank",
+        "token": "can't be blank"
+      },
+      "title": "CreateUserPasswordRespondErrors",
+      "type": "object"
+    },
+    "CreateUserRequest": {
+      "description": "POST body for creating a user",
+      "example": {
+        "birthday": "15/Nov/2000",
+        "email": "karina@gmail.com",
+        "is_admin": "true",
+        "language": "spanish",
+        "lastname": "Resendiz",
+        "middlename": "Karina",
+        "name": "Alondra",
+        "phone": "+524271145588",
+        "second_lastname": "Alvarez",
+        "timezone": "UTC/GMT -6 hours Mexico Guadalajara"
+      },
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/User",
+          "description": "The user details"
+        }
+      },
+      "title": "CreateUserRequest",
+      "type": "object"
+    },
+    "CreateUserResponse": {
+      "description": "Response schema for single user",
+      "example": {
+        "data": {
+          "auth0_id": "auth0|63a07963aacda015264805a3",
+          "birthday": "15/Nov/2000",
+          "email": "karina@gmail.com",
+          "id": "e9bd02f8-f81a-4e4b-b67c-86df37b4ff1a",
+          "image": {
+            "file_name": "avatar_mujer.png",
+            "updated_at": "2022-12-16T15:55:28"
+          },
+          "inserted_at": "2022-12-23T18:11:08.671904",
+          "is_admin": true,
+          "language": "spanish",
+          "lastname": "Resendiz",
+          "middlename": "Karina",
+          "name": "Alondra",
+          "phone": "+524271145588",
+          "second_lastname": "Alvarez",
+          "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
+          "updated_at": "2022-12-23T18:11:08.671904"
+        }
+      },
+      "properties": {
+        "data": {
+          "$ref": "#/definitions/User",
+          "description": "The user details created"
+        }
+      },
+      "title": "CreateUserResponse",
+      "type": "object"
+    },
+    "CreateUserResponseErrors": {
+      "description": "Response errors from create user",
+      "example": {
+        "email": "can't be blank",
+        "name": "can't be blank"
+      },
+      "title": "CreateUserResponseErrors",
+      "type": "object"
+    },
+    "DeleteUserRequest": {
+      "description": "Request params to delete a user",
+      "title": "DeleteUserRequest",
+      "type": "object"
+    },
+    "DeleteUserResponse": {
+      "description": "Response schema of a single user",
+      "example": {
+        "data": {
+          "birthday": "15/Nov/2000",
+          "email": "karina@gmail.com",
+          "image": {
+            "file_name": "avatar_mujer.png",
+            "updated_at": "2022-12-16T15:55:28"
+          },
+          "is_admin": "true",
+          "language": "spanish",
+          "lastname": "Resendiz",
+          "middlename": "Karina",
+          "name": "Denisse",
+          "phone": "+524271145588",
+          "second_lastname": "Alvarez",
+          "timezone": "UTC/GMT -6 hours Mexico Guadalajara"
+        }
+      },
+      "properties": {
+        "users": {
+          "description": "The user deleted",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "DeleteUserResponse",
+      "type": "object"
+    },
     "Error": {
       "description": "Error responses from the API",
       "properties": {
@@ -12,6 +155,203 @@
         "error"
       ],
       "title": "Errors",
+      "type": "object"
+    },
+    "ShowUserResponse": {
+      "description": "Response schema of a single user",
+      "example": {
+        "data": {
+          "auth0_id": "auth0|63a07963aacda015264805a3",
+          "birthday": "29/Oct/2000",
+          "email": "denissefc1@gmail.com",
+          "id": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
+          "image": {
+            "file_name": "avatar_mujer.png",
+            "updated_at": "2022-12-16T15:55:28"
+          },
+          "inserted_at": "2022-12-16T15:55:28.538401",
+          "is_admin": true,
+          "language": "spanish",
+          "lastname": "Resendiz",
+          "middlename": "Karina",
+          "name": "Alondra",
+          "phone": "+524271145588",
+          "second_lastname": "Alvarez",
+          "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
+          "updated_at": "2022-12-16T15:55:28.538401"
+        }
+      },
+      "properties": {
+        "users": {
+          "$ref": "#/definitions/User",
+          "description": "The user found"
+        }
+      },
+      "title": "ShowUserResponse",
+      "type": "object"
+    },
+    "ShowUsersEmptyResponse": {
+      "description": "Response error users empty",
+      "example": {
+        "error": "There are no users"
+      },
+      "title": "ShowUsersEmptyResponse",
+      "type": "object"
+    },
+    "ShowUsersResponse": {
+      "description": "Response schema for multiple users created",
+      "example": {
+        "data": [
+          {
+            "auth0_id": "auth0|63a07963aacda015264805a3",
+            "birthday": "29/Oct/2000",
+            "email": "denissefc1@gmail.com",
+            "id": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
+            "image": {
+              "file_name": "avatar_mujer.png",
+              "updated_at": "2022-12-16T15:55:28"
+            },
+            "inserted_at": "2022-12-16T15:55:28.538401",
+            "is_admin": true,
+            "language": "spanish",
+            "lastname": "Resendiz",
+            "middlename": "Karina",
+            "name": "Alondra",
+            "phone": "+524271145588",
+            "second_lastname": "Alvarez",
+            "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
+            "updated_at": "2022-12-16T15:55:28.538401"
+          },
+          {
+            "auth0_id": "auth0|895a07963aacda015264805a3",
+            "birthday": "14/Nov/2000",
+            "email": "ariel.ti19@gmail.com",
+            "id": "3d47122c-295c-466a-a3b8-c78c2145170d",
+            "image": {
+              "file_name": "avatar_hombre.png",
+              "updated_at": "2022-12-08T18:15:39"
+            },
+            "inserted_at": "2022-12-08T18:15:39.367744",
+            "is_admin": false,
+            "language": "spanish",
+            "lastname": "Perez",
+            "middlename": "Ariel",
+            "name": "Carlos",
+            "phone": "+524271127755",
+            "second_lastname": "Cantero",
+            "timezone": "UTC/GMT -6 hours",
+            "updated_at": "2022-12-08T18:15:39.367744"
+          }
+        ]
+      },
+      "properties": {
+        "data": {
+          "description": "The users details",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "ShowUsersResponse",
+      "type": "object"
+    },
+    "UpdateAvatarUserRequest": {
+      "description": "Request params to update a user's image",
+      "example": {
+        "image": "Denisse"
+      },
+      "properties": {
+        "data": {
+          "description": "The user params",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "UpdateAvatarUserRequest",
+      "type": "object"
+    },
+    "UpdateAvatarUserResponse": {
+      "description": "Response schema of a single user",
+      "example": {
+        "data": {
+          "birthday": "15/Nov/2000",
+          "email": "karina@gmail.com",
+          "image": {
+            "file_name": "avatar_mujer.png",
+            "updated_at": "2022-12-16T15:55:28"
+          },
+          "is_admin": "true",
+          "language": "spanish",
+          "lastname": "Resendiz",
+          "middlename": "Karina",
+          "name": "Denisse",
+          "phone": "+524271145588",
+          "second_lastname": "Alvarez",
+          "timezone": "UTC/GMT -6 hours Mexico Guadalajara"
+        }
+      },
+      "properties": {
+        "data": {
+          "description": "The user updated",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "UpdateAvatarUserResponse",
+      "type": "object"
+    },
+    "UpdateUserRequest": {
+      "description": "Request params to update a user",
+      "example": {
+        "name": "Denisse"
+      },
+      "properties": {
+        "data": {
+          "description": "The user params",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "UpdateUserRequest",
+      "type": "object"
+    },
+    "UpdateUserResponse": {
+      "description": "Response schema of a single user",
+      "example": {
+        "data": {
+          "birthday": "15/Nov/2000",
+          "email": "karina@gmail.com",
+          "image": {
+            "file_name": "avatar_mujer.png",
+            "updated_at": "2022-12-16T15:55:28"
+          },
+          "is_admin": "true",
+          "language": "spanish",
+          "lastname": "Resendiz",
+          "middlename": "Karina",
+          "name": "Denisse",
+          "phone": "+524271145588",
+          "second_lastname": "Alvarez",
+          "timezone": "UTC/GMT -6 hours Mexico Guadalajara"
+        }
+      },
+      "properties": {
+        "data": {
+          "description": "The user updated",
+          "items": {
+            "$ref": "#/definitions/User"
+          },
+          "type": "array"
+        }
+      },
+      "title": "UpdateUserResponse",
       "type": "object"
     },
     "User": {
@@ -110,42 +450,6 @@
       ],
       "title": "User",
       "type": "object"
-    },
-    "UserRequest": {
-      "description": "POST body for creating a user",
-      "properties": {
-        "user": {
-          "$ref": "#/definitions/User",
-          "description": "The user details"
-        }
-      },
-      "title": "UserRequest",
-      "type": "object"
-    },
-    "UserResponse": {
-      "description": "Response schema for single user",
-      "properties": {
-        "data": {
-          "$ref": "#/definitions/User",
-          "description": "The user details"
-        }
-      },
-      "title": "UserResponse",
-      "type": "object"
-    },
-    "UsersResponse": {
-      "description": "Response schema for multiple users",
-      "properties": {
-        "data": {
-          "description": "The users details",
-          "items": {
-            "$ref": "#/definitions/User"
-          },
-          "type": "array"
-        }
-      },
-      "title": "UsersReponse",
-      "type": "object"
     }
   },
   "host": "localhost:4000",
@@ -165,31 +469,17 @@
         "consumes": [
           "application/json"
         ],
-        "description": "Creates a new user",
+        "deprecated": false,
+        "description": "Create a new user in the database",
         "operationId": "GreenhouseWeb.UserController.create",
         "parameters": [
           {
-            "description": "The user details",
+            "description": "The user data",
             "in": "body",
             "name": "user",
-            "required": false,
+            "required": true,
             "schema": {
-              "$ref": "#/definitions/UserRequest"
-            },
-            "x-example": {
-              "user": {
-                "birthday": "15/Nov/2000",
-                "email": "gomez.c.orlando@gmail.com",
-                "image": "/home/orlando/Pictures/avatar_mujer.png",
-                "is_admin": "true",
-                "language": "spanish",
-                "lastname": "Resendiz",
-                "middlename": "KArina",
-                "name": "Alondra",
-                "phone": "+524271145588",
-                "second_lastname": "Alvarez",
-                "timezone": "UTC/GMT -6 hours Mexico Guadalajara"
-              }
+              "$ref": "#/definitions/CreateUserRequest"
             }
           }
         ],
@@ -198,27 +488,93 @@
         ],
         "responses": {
           "201": {
-            "description": "User created OK",
+            "description": "Created",
             "schema": {
-              "$ref": "#/definitions/UserResponse"
+              "$ref": "#/definitions/CreateUserResponse"
             }
           },
-          "422": {
-            "description": "Unprocessable Entity",
+          "400": {
+            "description": "Bad Request",
             "schema": {
-              "$ref": "#/definitions/Error"
+              "$ref": "#/definitions/CreateUserResponseErrors"
             }
           }
         },
-        "summary": "Create user",
+        "summary": "Add a new user",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/users/confirmation": {
+      "post": {
+        "consumes": [
+          "application/json"
+        ],
+        "deprecated": false,
+        "description": "Create a password in Auth0 for a new user in the database",
+        "operationId": "GreenhouseWeb.UserController.create_password",
+        "parameters": [
+          {
+            "description": "The user data",
+            "in": "body",
+            "name": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/CreateUserPasswordRequest"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": {
+              "$ref": "#/definitions/CreateUserPasswordRespond"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/CreateUserPasswordRespondErrors"
+            }
+          }
+        },
+        "summary": "Add the password for a new user",
         "tags": [
           "User"
         ]
       }
     },
     "/api/users/{id}": {
+      "delete": {
+        "description": "Delete a user by ID",
+        "operationId": "GreenhouseWeb.UserController.delete",
+        "parameters": [
+          {
+            "description": "User ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd"
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content - Deleted Successfully"
+          }
+        },
+        "summary": "Delete a Specific User",
+        "tags": [
+          "User"
+        ]
+      },
       "get": {
-        "description": "Show a user by ID",
+        "deprecated": false,
+        "description": "Return JSON with an especific user",
         "operationId": "GreenhouseWeb.UserController.show_user",
         "parameters": [
           {
@@ -235,33 +591,9 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "examples": {
-              "application/json": {
-                "data": {
-                  "auth0_id": "auth0|63a07963aacda015264805a3",
-                  "birthday": "29/Oct/2000",
-                  "email": "denissefc1@gmail.com",
-                  "id": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
-                  "image": {
-                    "file_name": "avatar_mujer.png",
-                    "updated_at": "2022-12-16T15:55:28"
-                  },
-                  "inserted_at": "2022-12-16T15:55:28.538401",
-                  "is_admin": true,
-                  "language": "spanish",
-                  "lastname": "Resendiz",
-                  "middlename": "Karina",
-                  "name": "Alondra",
-                  "phone": "+524271145588",
-                  "second_lastname": "Alvarez",
-                  "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
-                  "updated_at": "2022-12-16T15:55:28.538401"
-                }
-              }
-            },
+            "description": "User created OK",
             "schema": {
-              "$ref": "#/definitions/UserResponse"
+              "$ref": "#/definitions/ShowUserResponse"
             }
           },
           "404": {
@@ -271,7 +603,93 @@
             }
           }
         },
-        "summary": "Show User",
+        "summary": "Show a Specific User",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/users/{id}/update": {
+      "put": {
+        "consumes": [
+          "application/json"
+        ],
+        "description": "Update all attributes of a user",
+        "operationId": "GreenhouseWeb.UserController.update",
+        "parameters": [
+          {
+            "description": "The id of the user",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "x-example": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd"
+          },
+          {
+            "description": "The user details to update",
+            "in": "body",
+            "name": "user",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateUserRequest"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "205": {
+            "description": "Updated",
+            "schema": {
+              "$ref": "#/definitions/UpdateUserResponse"
+            }
+          },
+          "400": {
+            "description": "Unprocessable Entity",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        },
+        "summary": "Update a user",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/api/users?name={name}": {
+      "get": {
+        "deprecated": false,
+        "description": "Returns JSON with all users matching listed in the database",
+        "operationId": "GreenhouseWeb.UserController.search_user",
+        "parameters": [
+          {
+            "description": "The field you want to find",
+            "in": "path",
+            "name": "name",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ShowUsersResponse"
+            }
+          },
+          "204": {
+            "description": "No users",
+            "schema": {
+              "$ref": "#/definitions/ShowUsersEmptyResponse"
+            }
+          }
+        },
+        "summary": "All Users in the search",
         "tags": [
           "User"
         ]
@@ -280,7 +698,7 @@
     "/api/users?page={page}&page_size={size}": {
       "get": {
         "deprecated": false,
-        "description": "List all users in the database",
+        "description": "Return JSON with all users listed in the database",
         "operationId": "GreenhouseWeb.UserController.index",
         "parameters": [
           {
@@ -305,72 +723,65 @@
         ],
         "responses": {
           "200": {
-            "description": "OK",
-            "examples": {
-              "application/json": {
-                "data": [
-                  {
-                    "auth0_id": "auth0|63a07963aacda015264805a3",
-                    "birthday": "29/Oct/2000",
-                    "email": "denissefc1@gmail.com",
-                    "id": "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
-                    "image": {
-                      "file_name": "avatar_mujer.png",
-                      "updated_at": "2022-12-16T15:55:28"
-                    },
-                    "inserted_at": "2022-12-16T15:55:28.538401",
-                    "is_admin": true,
-                    "language": "spanish",
-                    "lastname": "Resendiz",
-                    "middlename": "Karina",
-                    "name": "Alondra",
-                    "phone": "+524271145588",
-                    "second_lastname": "Alvarez",
-                    "timezone": "UTC/GMT -6 hours Mexico Guadalajara",
-                    "updated_at": "2022-12-16T15:55:28.538401"
-                  },
-                  {
-                    "auth0_id": "auth0|895a07963aacda015264805a3",
-                    "birthday": "14/Nov/2000",
-                    "email": "ariel.ti19@gmail.com",
-                    "id": "3d47122c-295c-466a-a3b8-c78c2145170d",
-                    "image": {
-                      "file_name": "avatar_hombre.png",
-                      "updated_at": "2022-12-08T18:15:39"
-                    },
-                    "inserted_at": "2022-12-08T18:15:39.367744",
-                    "is_admin": false,
-                    "language": "spanish",
-                    "lastname": "Perez",
-                    "middlename": "Ariel",
-                    "name": "Carlos",
-                    "phone": "+524271127755",
-                    "second_lastname": "Cantero",
-                    "timezone": "UTC/GMT -6 hours",
-                    "updated_at": "2022-12-08T18:15:39.367744"
-                  }
-                ]
-              }
-            },
+            "description": "Success",
             "schema": {
-              "$ref": "#/definitions/UsersResponse"
+              "$ref": "#/definitions/ShowUsersResponse"
             }
           },
-          "202": {
-            "description": "Accepted",
-            "examples": {
-              "application/json": {
-                "data": {
-                  "error": "There are no users"
-                }
-              }
-            },
+          "204": {
+            "description": "No users",
+            "schema": {
+              "$ref": "#/definitions/ShowUsersEmptyResponse"
+            }
+          }
+        },
+        "summary": "All Users",
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/users/upload_avatar/{id}": {
+      "put": {
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "description": "Update the user's profile picture",
+        "operationId": "GreenhouseWeb.UserController.upload_avatar",
+        "parameters": [
+          {
+            "description": "User ID",
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "description": "Browse File",
+            "in": "file",
+            "name": "image",
+            "required": true,
+            "type": "formData"
+          }
+        ],
+        "produces": [
+          "multipart/form-data"
+        ],
+        "responses": {
+          "201": {
+            "description": "Ok",
+            "schema": {
+              "$ref": "#/definitions/UpdateAvatarUserResponse"
+            }
+          },
+          "422": {
+            "description": "Unprocessable Entity",
             "schema": {
               "$ref": "#/definitions/Error"
             }
           }
         },
-        "summary": "List all recorded activities",
+        "summary": "Upload avatar of a user",
         "tags": [
           "User"
         ]

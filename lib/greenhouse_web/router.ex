@@ -24,7 +24,7 @@ defmodule GreenhouseWeb.Router do
     put "/users/:id/update", UserController, :update
     post "/users", UserController, :create
     post "/users/confirmation", UserController, :create_password
-    post "/users/update_avatar/:id", UserController, :upload_avatar
+    put "/users/upload_avatar/:id", UserController, :upload_avatar
     get "/search", UserController, :search_user
     put "/users/:id/update_user", UserController, :updateUserAuth
   end

@@ -3,7 +3,6 @@ defmodule GreenhouseWeb.UserController do
 
   alias Greenhouse.Accounts
   alias Greenhouse.Shared.EmailServer
-  # alias Greenhouse.Repo
   use PhoenixSwagger
 
   action_fallback GreenhouseWeb.FallbackController
@@ -54,23 +53,287 @@ defmodule GreenhouseWeb.UserController do
             updated_at: "2022-12-16T15:55:28.538401"
           })
         end,
-      UserRequest:
+      CreateUserRequest:
         swagger_schema do
-          title("UserRequest")
+          title("CreateUserRequest")
           description("POST body for creating a user")
           property(:user, Schema.ref(:User), "The user details")
+
+          example(%{
+            name: "Alondra",
+            middlename: "Karina",
+            lastname: "Resendiz",
+            second_lastname: "Alvarez",
+            phone: "+524271145588",
+            birthday: "15/Nov/2000",
+            email: "karina@gmail.com",
+            is_admin: "true",
+            timezone: "UTC/GMT -6 hours Mexico Guadalajara",
+            language: "spanish"
+          })
         end,
-      UserResponse:
+      CreateUserResponse:
         swagger_schema do
-          title("UserResponse")
+          title("CreateUserResponse")
           description("Response schema for single user")
-          property(:data, Schema.ref(:User), "The user details")
+          property(:data, Schema.ref(:User), "The user details created")
+
+          example(%{
+            data: %{
+              auth0_id: "auth0|63a07963aacda015264805a3",
+              birthday: "15/Nov/2000",
+              email: "karina@gmail.com",
+              id: "e9bd02f8-f81a-4e4b-b67c-86df37b4ff1a",
+              image: %{
+                file_name: "avatar_mujer.png",
+                updated_at: "2022-12-16T15:55:28"
+              },
+              inserted_at: "2022-12-23T18:11:08.671904",
+              is_admin: true,
+              language: "spanish",
+              lastname: "Resendiz",
+              middlename: "Karina",
+              name: "Alondra",
+              phone: "+524271145588",
+              second_lastname: "Alvarez",
+              timezone: "UTC/GMT -6 hours Mexico Guadalajara",
+              updated_at: "2022-12-23T18:11:08.671904"
+            }
+          })
         end,
-      UsersResponse:
+      CreateUserResponseErrors:
         swagger_schema do
-          title("UsersReponse")
-          description("Response schema for multiple users")
+          title("CreateUserResponseErrors")
+          description("Response errors from create user")
+
+          example(%{
+            name: "can't be blank",
+            email: "can't be blank"
+          })
+        end,
+      ShowUsersResponse:
+        swagger_schema do
+          title("ShowUsersResponse")
+          description("Response schema for multiple users created")
           property(:data, Schema.array(:User), "The users details")
+
+          example(%{
+            data: [
+              %{
+                auth0_id: "auth0|63a07963aacda015264805a3",
+                birthday: "29/Oct/2000",
+                email: "denissefc1@gmail.com",
+                id: "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
+                image: %{
+                  file_name: "avatar_mujer.png",
+                  updated_at: "2022-12-16T15:55:28"
+                },
+                inserted_at: "2022-12-16T15:55:28.538401",
+                is_admin: true,
+                language: "spanish",
+                lastname: "Resendiz",
+                middlename: "Karina",
+                name: "Alondra",
+                phone: "+524271145588",
+                second_lastname: "Alvarez",
+                timezone: "UTC/GMT -6 hours Mexico Guadalajara",
+                updated_at: "2022-12-16T15:55:28.538401"
+              },
+              %{
+                auth0_id: "auth0|895a07963aacda015264805a3",
+                birthday: "14/Nov/2000",
+                email: "ariel.ti19@gmail.com",
+                id: "3d47122c-295c-466a-a3b8-c78c2145170d",
+                image: %{
+                  file_name: "avatar_hombre.png",
+                  updated_at: "2022-12-08T18:15:39"
+                },
+                inserted_at: "2022-12-08T18:15:39.367744",
+                is_admin: false,
+                language: "spanish",
+                lastname: "Perez",
+                middlename: "Ariel",
+                name: "Carlos",
+                phone: "+524271127755",
+                second_lastname: "Cantero",
+                timezone: "UTC/GMT -6 hours",
+                updated_at: "2022-12-08T18:15:39.367744"
+              }
+            ]
+          })
+        end,
+      ShowUsersEmptyResponse:
+        swagger_schema do
+          title("ShowUsersEmptyResponse")
+          description("Response error users empty")
+
+          example(%{
+            error: "There are no users"
+          })
+        end,
+      ShowUserResponse:
+        swagger_schema do
+          title("ShowUserResponse")
+          description("Response schema of a single user")
+          property(:users, Schema.ref(:User), "The user found")
+
+          example(%{
+            data: %{
+              auth0_id: "auth0|63a07963aacda015264805a3",
+              birthday: "29/Oct/2000",
+              email: "denissefc1@gmail.com",
+              id: "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
+              image: %{
+                file_name: "avatar_mujer.png",
+                updated_at: "2022-12-16T15:55:28"
+              },
+              inserted_at: "2022-12-16T15:55:28.538401",
+              is_admin: true,
+              language: "spanish",
+              lastname: "Resendiz",
+              middlename: "Karina",
+              name: "Alondra",
+              phone: "+524271145588",
+              second_lastname: "Alvarez",
+              timezone: "UTC/GMT -6 hours Mexico Guadalajara",
+              updated_at: "2022-12-16T15:55:28.538401"
+            }
+          })
+        end,
+      UpdateUserRequest:
+        swagger_schema do
+          title("UpdateUserRequest")
+          description("Request params to update a user")
+          property(:data, Schema.array(:User), "The user params")
+
+          example(%{
+            name: "Denisse"
+          })
+        end,
+      UpdateUserResponse:
+        swagger_schema do
+          title("UpdateUserResponse")
+          description("Response schema of a single user")
+          property(:data, Schema.array(:User), "The user updated")
+
+          example(%{
+            data: %{
+              name: "Denisse",
+              middlename: "Karina",
+              lastname: "Resendiz",
+              second_lastname: "Alvarez",
+              phone: "+524271145588",
+              birthday: "15/Nov/2000",
+              email: "karina@gmail.com",
+              is_admin: "true",
+              image: %{
+                file_name: "avatar_mujer.png",
+                updated_at: "2022-12-16T15:55:28"
+              },
+              timezone: "UTC/GMT -6 hours Mexico Guadalajara",
+              language: "spanish"
+            }
+          })
+        end,
+      DeleteUserRequest:
+        swagger_schema do
+          title("DeleteUserRequest")
+          description("Request params to delete a user")
+        end,
+      DeleteUserResponse:
+        swagger_schema do
+          title("DeleteUserResponse")
+          description("Response schema of a single user")
+          property(:users, Schema.array(:User), "The user deleted")
+
+          example(%{
+            data: %{
+              name: "Denisse",
+              middlename: "Karina",
+              lastname: "Resendiz",
+              second_lastname: "Alvarez",
+              phone: "+524271145588",
+              birthday: "15/Nov/2000",
+              email: "karina@gmail.com",
+              is_admin: "true",
+              image: %{
+                file_name: "avatar_mujer.png",
+                updated_at: "2022-12-16T15:55:28"
+              },
+              timezone: "UTC/GMT -6 hours Mexico Guadalajara",
+              language: "spanish"
+            }
+          })
+        end,
+      UpdateAvatarUserRequest:
+        swagger_schema do
+          title("UpdateAvatarUserRequest")
+          description("Request params to update a user's image")
+          property(:data, Schema.array(:User), "The user params")
+
+          example(%{
+            image: "Denisse"
+          })
+        end,
+      UpdateAvatarUserResponse:
+        swagger_schema do
+          title("UpdateAvatarUserResponse")
+          description("Response schema of a single user")
+          property(:data, Schema.array(:User), "The user updated")
+
+          example(%{
+            data: %{
+              name: "Denisse",
+              middlename: "Karina",
+              lastname: "Resendiz",
+              second_lastname: "Alvarez",
+              phone: "+524271145588",
+              birthday: "15/Nov/2000",
+              email: "karina@gmail.com",
+              is_admin: "true",
+              image: %{
+                file_name: "avatar_mujer.png",
+                updated_at: "2022-12-16T15:55:28"
+              },
+              timezone: "UTC/GMT -6 hours Mexico Guadalajara",
+              language: "spanish"
+            }
+          })
+        end,
+      CreateUserPasswordRequest:
+        swagger_schema do
+          title("CreateUserPasswordRequest")
+          description("POST body for creating a user password")
+          property(:user, Schema.ref(:User), "The user password details")
+
+          example(%{
+            token:
+              "SFMyNTY.g2gDdAAAABJkAAhfX21ldGFfX3QAAAAGZAAKX19zdHJ1Y3RfX2QAG0VsaXhpci5FY3RvLlNjaGVtYS5NZXRhZGF0YWQAB2NvbnRleHRkAANuaWxkAAZwcmVmaXhkAANuaWxkAAZzY2hlbWFkAB9FbGl4aXIuR3JlZW5ob3VzZS5BY2NvdW50cy5Vc2VyZAAGc291cmNlbQAAAAV1c2Vyc2QABXN0YXRlZAAGbG9hZGVkZAAIYXV0aDBfaWRkAANuaWxkAAhiaXJ0aGRheW0AAAALMTUvTm92LzE5OThkAAVlbWFpbG0AAAAZZ29tZXouYy5vcmxhbmRvQGdtYWlsLmNvbWQAAmlkbQAAACQ4NTFmZTM2OC1jMzQ1LTRlYzQtODAyOS1lMTdhMDM0YjMxNGFkAAVpbWFnZWQAA25pbGQAC2luc2VydGVkX2F0dAAAAAlkAApfX3N0cnVjdF9fZAAURWxpeGlyLk5haXZlRGF0ZVRpbWVkAAhjYWxlbmRhcmQAE0VsaXhpci5DYWxlbmRhci5JU09kAANkYXlhFmQABGhvdXJhEGQAC21pY3Jvc2Vjb25kaAJiAAXzn2EGZAAGbWludXRlYQVkAAVtb250aGEMZAAGc2Vjb25kYQdkAAR5ZWFyYgAAB-ZkAAhpc19hZG1pbmQABHRydWVkAAhsYW5ndWFnZW0AAAAHc3BhbmlzaGQACGxhc3RuYW1lbQAAAAVHb21lemQACm1pZGRsZW5hbWVkAANuaWxkAARuYW1lbQAAAAdPcmxhbmRvZAAIcGFzc3dvcmRkAANuaWxkABVwYXNzd29yZF9jb25maXJtYXRpb25kAANuaWxkAAVwaG9uZW0AAAANKzUyNDI3ODg4OTkyMWQAD3NlY29uZF9sYXN0bmFtZW0AAAAGQ29ycmVhZAAIdGltZXpvbmVtAAAAI1VUQy9HTVQgLTYgaG91cnMgTWV4aWNvIEd1YWRhbGFqYXJhZAAKdXBkYXRlZF9hdHQAAAAJZAAKX19zdHJ1Y3RfX2QAFEVsaXhpci5OYWl2ZURhdGVUaW1lZAAIY2FsZW5kYXJkABNFbGl4aXIuQ2FsZW5kYXIuSVNPZAADZGF5YRZkAARob3VyYRBkAAttaWNyb3NlY29uZGgCYgAF859hBmQABm1pbnV0ZWEFZAAFbW9udGhhDGQABnNlY29uZGEHZAAEeWVhcmIAAAfmbgYAv8iUOoUBYgABUYA.FFYVgzcyfMGilXtwq2wKQe0GmweDw5ARC-UA7jNZodo",
+            password: "C0c@C0l@7952",
+            password_confirmation: "C0c@C0l@7952"
+          })
+        end,
+      CreateUserPasswordRespond:
+        swagger_schema do
+          title("CreateUserPasswordRespond")
+          description("Response schema for user password confirm")
+          property(:data, Schema.ref(:User), "The user details created")
+
+          example(%{
+            message: "User confirmed",
+            success: true
+          })
+        end,
+      CreateUserPasswordRespondErrors:
+        swagger_schema do
+          title("CreateUserPasswordRespondErrors")
+          description("Response errors from create user")
+
+          example(%{
+            token: "can't be blank",
+            password: "can't be blank",
+            password_confirmation: "can't be blank"
+          })
         end,
       Error:
         swagger_schema do
@@ -86,32 +349,16 @@ defmodule GreenhouseWeb.UserController do
 
   swagger_path :create do
     post("/api/users")
-    summary("Create user")
-    description("Creates a new user")
+    summary("Add a new user")
+    description("Create a new user in the database")
     consumes("application/json")
     produces("application/json")
+    deprecated(false)
 
-    parameter(:user, :body, Schema.ref(:UserRequest), "The user details",
-      example: %{
-        user: %{
-          name: "Alondra",
-          middlename: "Karina",
-          lastname: "Resendiz",
-          second_lastname: "Alvarez",
-          phone: "+524271145588",
-          birthday: "15/Nov/2000",
-          email: "gomez.c.orlando@gmail.com",
-          is_admin: "true",
-          image: "/home/orlando/Pictures/avatar_mujer.png",
-          timezone: "UTC/GMT -6 hours Mexico Guadalajara",
-          language: "spanish"
-        }
-      }
-    )
+    parameter(:user, :body, Schema.ref(:CreateUserRequest), "The user data", required: true)
 
-    response(201, "User created OK", Schema.ref(:UserResponse))
-
-    response(422, "Unprocessable Entity", Schema.ref(:Error))
+    response(201, "Created", Schema.ref(:CreateUserResponse))
+    response(400, "Bad Request", Schema.ref(:CreateUserResponseErrors))
   end
 
   def create(conn, params) do
@@ -122,6 +369,22 @@ defmodule GreenhouseWeb.UserController do
       |> put_resp_header("location", Routes.user_path(conn, :show_user, user))
       |> render("show.json", %{user: user})
     end
+  end
+
+  swagger_path :create_password do
+    post("/api/users/confirmation")
+    summary("Add the password for a new user")
+    description("Create a password in Auth0 for a new user in the database")
+    consumes("application/json")
+    produces("application/json")
+    deprecated(false)
+
+    parameter(:user, :body, Schema.ref(:CreateUserPasswordRequest), "The user data",
+      required: true
+    )
+
+    response(201, "Created", Schema.ref(:CreateUserPasswordRespond))
+    response(400, "Bad Request", Schema.ref(:CreateUserPasswordRespondErrors))
   end
 
   def create_password(conn, %{"token" => token} = params) do
@@ -154,6 +417,27 @@ defmodule GreenhouseWeb.UserController do
     |> json(%{error: "Bad request create password"})
   end
 
+  swagger_path(:update) do
+    put("/api/users/{id}/update")
+
+    summary("Update a user")
+    description("Update all attributes of a user")
+    consumes("application/json")
+    produces("application/json")
+
+    parameters do
+      id(:path, :string, "The id of the user",
+        required: true,
+        example: "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd"
+      )
+
+      user(:body, Schema.ref(:UpdateUserRequest), "The user details to update", required: true)
+    end
+
+    response(205, "Updated", Schema.ref(:UpdateUserResponse))
+    response(400, "Unprocessable Entity", Schema.ref(:Error))
+  end
+
   def update(conn, params) do
     user = Accounts.get_user!(conn.path_params["id"])
 
@@ -177,6 +461,19 @@ defmodule GreenhouseWeb.UserController do
     end
   end
 
+  swagger_path(:delete) do
+    PhoenixSwagger.Path.delete("/api/users/{id}")
+    summary("Delete a Specific User")
+    description("Delete a user by ID")
+
+    parameter(:id, :path, :string, "User ID",
+      required: true,
+      example: "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd"
+    )
+
+    response(204, "No Content - Deleted Successfully")
+  end
+
   def delete(conn, %{"id" => id}) do
     with user <- Accounts.get_user!(id) do
       Accounts.delete_user(user)
@@ -193,39 +490,17 @@ defmodule GreenhouseWeb.UserController do
 
   swagger_path(:show_user) do
     get("/api/users/{id}")
-    summary("Show User")
-    description("Show a user by ID")
+    summary("Show a Specific User")
+    description("Return JSON with an especific user")
     produces("application/json")
+    deprecated(false)
 
     parameter(:id, :path, :string, "User ID",
       required: true,
       example: "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd"
     )
 
-    response(200, "OK", Schema.ref(:UserResponse),
-      example: %{
-        data: %{
-          auth0_id: "auth0|63a07963aacda015264805a3",
-          birthday: "29/Oct/2000",
-          email: "denissefc1@gmail.com",
-          id: "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
-          image: %{
-            file_name: "avatar_mujer.png",
-            updated_at: "2022-12-16T15:55:28"
-          },
-          inserted_at: "2022-12-16T15:55:28.538401",
-          is_admin: true,
-          language: "spanish",
-          lastname: "Resendiz",
-          middlename: "Karina",
-          name: "Alondra",
-          phone: "+524271145588",
-          second_lastname: "Alvarez",
-          timezone: "UTC/GMT -6 hours Mexico Guadalajara",
-          updated_at: "2022-12-16T15:55:28.538401"
-        }
-      }
-    )
+    response(200, "User created OK", Schema.ref(:ShowUserResponse))
 
     response(404, "Not found", Schema.ref(:Error))
   end
@@ -248,71 +523,22 @@ defmodule GreenhouseWeb.UserController do
 
   swagger_path(:index) do
     get("/api/users?page={page}&page_size={size}")
-    summary("List all recorded activities")
-    description("List all users in the database")
+    summary("All Users")
+    description("Return JSON with all users listed in the database")
     produces("application/json")
     deprecated(false)
-    parameter(:page, :path, :integer, "Page number to be displayed", required: true, example: 2)
 
-    parameter(:size, :path, :integer, "Total number of entries per page",
-      required: true,
-      example: 10
-    )
+    parameters do
+      page(:path, :integer, "Page number to be displayed", required: true, example: 2)
 
-    response(200, "OK", Schema.ref(:UsersResponse),
-      example: %{
-        data: [
-          %{
-            auth0_id: "auth0|63a07963aacda015264805a3",
-            birthday: "29/Oct/2000",
-            email: "denissefc1@gmail.com",
-            id: "1b1716bd-1875-44c4-8c4b-6f969fc5fdbd",
-            image: %{
-              file_name: "avatar_mujer.png",
-              updated_at: "2022-12-16T15:55:28"
-            },
-            inserted_at: "2022-12-16T15:55:28.538401",
-            is_admin: true,
-            language: "spanish",
-            lastname: "Resendiz",
-            middlename: "Karina",
-            name: "Alondra",
-            phone: "+524271145588",
-            second_lastname: "Alvarez",
-            timezone: "UTC/GMT -6 hours Mexico Guadalajara",
-            updated_at: "2022-12-16T15:55:28.538401"
-          },
-          %{
-            auth0_id: "auth0|895a07963aacda015264805a3",
-            birthday: "14/Nov/2000",
-            email: "ariel.ti19@gmail.com",
-            id: "3d47122c-295c-466a-a3b8-c78c2145170d",
-            image: %{
-              file_name: "avatar_hombre.png",
-              updated_at: "2022-12-08T18:15:39"
-            },
-            inserted_at: "2022-12-08T18:15:39.367744",
-            is_admin: false,
-            language: "spanish",
-            lastname: "Perez",
-            middlename: "Ariel",
-            name: "Carlos",
-            phone: "+524271127755",
-            second_lastname: "Cantero",
-            timezone: "UTC/GMT -6 hours",
-            updated_at: "2022-12-08T18:15:39.367744"
-          }
-        ]
-      }
-    )
+      size(:path, :integer, "Total number of entries per page",
+        required: true,
+        example: 10
+      )
+    end
 
-    response(202, "Accepted", Schema.ref(:Error),
-      example: %{
-        data: %{
-          error: "There are no users"
-        }
-      }
-    )
+    response(200, "Success", Schema.ref(:ShowUsersResponse))
+    response(204, "No users", Schema.ref(:ShowUsersEmptyResponse))
   end
 
   def index(conn, params) do
@@ -334,9 +560,40 @@ defmodule GreenhouseWeb.UserController do
     end
   end
 
+  swagger_path(:search_user) do
+    get("/api/users?name={name}")
+    summary("All Users in the search")
+    description("Returns JSON with all users matching listed in the database")
+    produces("application/json")
+    deprecated(false)
+
+    parameters do
+      name(:path, :string, "The field you want to find", required: true)
+    end
+
+    response(200, "Success", Schema.ref(:ShowUsersResponse))
+    response(204, "No users", Schema.ref(:ShowUsersEmptyResponse))
+  end
+
   def search_user(conn, %{"name" => name}) do
     users = Accounts.search(name)
     render(conn, "search.json", users: users)
+  end
+
+  swagger_path :upload_avatar do
+    put("/users/upload_avatar/{id}")
+    summary("Upload avatar of a user")
+    description("Update the user's profile picture")
+    consumes("multipart/form-data")
+    produces("multipart/form-data")
+
+    parameters do
+      id(:path, :string, "User ID", required: true)
+      image(:file, :formData, "Browse File", required: true)
+    end
+
+    response(201, "Ok", Schema.ref(:UpdateAvatarUserResponse))
+    response(422, "Unprocessable Entity", Schema.ref(:Error))
   end
 
   def upload_avatar(conn, params) do
