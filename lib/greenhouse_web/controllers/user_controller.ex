@@ -2,7 +2,9 @@ defmodule GreenhouseWeb.UserController do
   use GreenhouseWeb, :controller
 
   alias Greenhouse.Accounts
+  # alias Greenhouse.Accounts.User
   alias Greenhouse.Shared.EmailServer
+
   use PhoenixSwagger
 
   action_fallback GreenhouseWeb.FallbackController
@@ -609,4 +611,21 @@ defmodule GreenhouseWeb.UserController do
         |> IO.inspect()
     end
   end
+
+  def show_image(conn, %{"image" => image}) do
+    file = File.read!("uploads/#{image}")
+
+    conn
+    |> put_status(200)
+    |> send_resp(:ok, file)
+  end
+
+  # def create(conn, %{"image" => image} = image_params) do
+  #   with {:ok, %Image{} = image} <- Images.create_image(image_params) do
+  #     conn
+  #     |> put_status(:created)
+  #     |> put_resp_header("location", Routes.image_path(conn, :show, image))
+  #     |> render("show.json", image: image)
+  #   end
+  # end
 end

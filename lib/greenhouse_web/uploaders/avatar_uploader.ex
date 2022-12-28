@@ -31,6 +31,10 @@ defmodule Greenhouse.AvatarUploader do
     end
   end
 
+  # def storage_dir(_, {_file, user}) do
+  #   "uploads/#{user.id}"
+  # end
+
   # def transform(:thumb, _) do
   #   {:convert, "-thumbnail 100x100^ -gravity center -extent 100x100 -format png", :png}
   # end

@@ -19,14 +19,6 @@ defmodule GreenhouseWeb.UserView do
     }
   end
 
-  # def render("search.json", %{
-  #       users: users
-  #     }) do
-  #   %{
-  #     users: render_many(users, __MODULE__, "user.json")
-  #   }
-  # end
-
   def render("search.json", %{users: users}) do
     %{data: render_many(users, __MODULE__, "user.json")}
   end

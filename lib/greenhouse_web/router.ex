@@ -27,6 +27,7 @@ defmodule GreenhouseWeb.Router do
     put "/users/upload_avatar/:id", UserController, :upload_avatar
     get "/search", UserController, :search_user
     put "/users/:id/update_user", UserController, :updateUserAuth
+    get "/users/image/:image", UserController, :show_image
   end
 
   def swagger_info do
