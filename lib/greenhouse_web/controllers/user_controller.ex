@@ -2,8 +2,8 @@ defmodule GreenhouseWeb.UserController do
   use GreenhouseWeb, :controller
 
   alias Greenhouse.Accounts
-  # alias Greenhouse.Accounts.User
   alias Greenhouse.Shared.EmailServer
+  alias GreenhouseWeb.Auth.Guardian.Guardian
 
   use PhoenixSwagger
 
@@ -577,9 +577,23 @@ defmodule GreenhouseWeb.UserController do
     response(204, "No users", Schema.ref(:ShowUsersEmptyResponse))
   end
 
-  def search_user(conn, %{"name" => name}) do
-    users = Accounts.search(name)
-    render(conn, "search.json", users: users)
+  def search_user(conn, params) do
+    page = params["page"] || 1
+    page_size = params["page_size"] || 1
+    term = params["name"]
+    users = Accounts.list_search_users(:paged, page, page_size, term)
+
+    case users != [] do
+      true ->
+        conn
+        |> put_status(:ok)
+        |> render("index.json", users: users)
+
+      false ->
+        conn
+        |> put_status(200)
+        |> json(%{error: "There are no users"})
+    end
   end
 
   swagger_path :upload_avatar do
@@ -620,12 +634,42 @@ defmodule GreenhouseWeb.UserController do
     |> send_resp(:ok, file)
   end
 
-  # def create(conn, %{"image" => image} = image_params) do
-  #   with {:ok, %Image{} = image} <- Images.create_image(image_params) do
+  def send_reset_password(conn, params) do
+    with {:ok, user} <- Accounts.create_user(params),
+         {:ok, _email} <- EmailServer.send_inserted_user(user) do
+      conn
+      |> put_status(:created)
+      |> put_resp_header("location", Routes.user_path(conn, :show_user, user))
+      |> render("show.json", %{user: user})
+    end
+  end
+
+  def createTest(conn, params) do
+    with {:ok, user} <- Accounts.create_user(params),
+         {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+      conn |> render("jwt.json", jwt: token)
+    end
+  end
+
+  def showTest(conn, _params) do
+    user = Guardian.Plug.current_resource(conn)
+    conn |> render("user.json", user: user)
+  end
+
+  #   def create(conn, %{"user" => user_params}) do
+  #   with {:ok, %User{} = user} <- Accounts.create_user(user_params),
+  #        {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
+  #     conn |> render("jwt.json", jwt: token)
+  #   end
+  # end
+
+  #   def create(conn, params) do
+  #   with {:ok, user} <- Accounts.create_user(params),
+  #        {:ok, _email} <- EmailServer.send_inserted_user(user) do
   #     conn
   #     |> put_status(:created)
-  #     |> put_resp_header("location", Routes.image_path(conn, :show, image))
-  #     |> render("show.json", image: image)
+  #     |> put_resp_header("location", Routes.user_path(conn, :show_user, user))
+  #     |> render("show.json", %{user: user})
   #   end
   # end
 end

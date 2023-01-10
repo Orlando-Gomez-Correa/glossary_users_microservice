@@ -11,9 +11,9 @@ defmodule GreenhouseWeb.Router do
     plug :accepts, ["json"]
   end
 
-  # pipeline :auth do
-  #   plug GreenhouseWeb.Auth.Guardian.Pipeline
-  # end
+  pipeline :auth do
+    plug GreenhouseWeb.Auth.Guardian.Pipeline
+  end
 
   scope "/api", GreenhouseWeb do
     pipe_through :api
@@ -28,6 +28,14 @@ defmodule GreenhouseWeb.Router do
     get "/search", UserController, :search_user
     put "/users/:id/update_user", UserController, :updateUserAuth
     get "/users/image/:image", UserController, :show_image
+    post "/users/reset/pass", UserController, :send_reset_password
+    post "/usersTest", UserController, :createTest
+  end
+
+  scope "/api", GreenhouseWeb do
+    pipe_through [:api, :auth]
+
+    get "/my_user", UserController, :showTest
   end
 
   def swagger_info do

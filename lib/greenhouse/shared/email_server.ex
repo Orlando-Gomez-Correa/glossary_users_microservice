@@ -24,4 +24,25 @@ defmodule Greenhouse.Shared.EmailServer do
     |> render("create-user-email.html", assigns)
     |> deliver_now()
   end
+
+  def user_reset_password(%User{} = user) do
+    token =
+      Phoenix.Token.sign(
+        GreenhouseWeb.Endpoint,
+        "Confirmation",
+        Map.from_struct(user)
+      )
+
+    assigns = %{
+      user: user,
+      url: "http://localhost:5173/reset_password?token=#{token}"
+    }
+
+    new_email()
+    |> from({"Glossary Team", "orlando@cordage.io"})
+    |> to({"#{user.name} #{user.lastname}", user.email})
+    |> subject("[Reset your password]")
+    |> render("reset-user-password.html", assigns)
+    |> deliver_now()
+  end
 end

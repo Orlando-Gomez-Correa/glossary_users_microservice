@@ -34,12 +34,10 @@ defmodule Greenhouse.Accounts do
   #   # Repo.all(where(Accounts, name: ^user.id))
   # end
 
-  def list_users(a, page \\ 1, per_page \\ 5)
-
   def list_users(:paged, page, per_page) do
     User
     |> order_by(asc: :name)
-    |> Greenhouse.Accounts.page(page, per_page)
+    |> __MODULE__.page(page, per_page)
   end
 
   @doc """
@@ -97,6 +95,23 @@ defmodule Greenhouse.Accounts do
     end
   end
 
+  def confirm_password(user, params) do
+    user
+    |> User.update_user_password(params)
+  end
+
+  def reset_password_auth0(%{valid?: false} = changeset, _) do
+    changeset
+  end
+
+  def reset_password_auth0(%{valid?: true, changes: changes}, user = %User{}) do
+    with {:ok, user_auth0} <-
+           Auth.reset_password(user.auth0_id, changes.password),
+         {:ok, updated_user} <- auth0_id_update(user, %{auth0_id: user_auth0["user_id"]}) do
+      {:ok, updated_user}
+    end
+  end
+
   @doc """
   Updates a user.
   ## Examples
@@ -148,7 +163,6 @@ defmodule Greenhouse.Accounts do
     User.avatar_changeset(user, %{})
   end
 
-  # ejemplo
   def query(query, page, per_page) when is_nil(page) do
     query(query, 0, per_page)
   end
@@ -199,37 +213,13 @@ defmodule Greenhouse.Accounts do
     }
   end
 
-  def search(search_term) do
-    search_term = "%#{search_term}%"
+  def list_search_users(:paged, page, per_page, term) do
+    search_term = "%#{term}%"
 
-    query =
-      from(
-        u in User,
-        where: ilike(u.name, ^search_term)
-        # select: count(u)
-      )
-
-    Repo.all(query)
-  end
-
-  def searchTest(search_term) do
-    search_term = "%#{search_term}%"
-
-    from u in User,
-      where:
-        ilike(u.name, ^search_term) or
-          ilike(u.lastname, ^search_term)
-  end
-
-  def paginate(attrs) do
-    from u in User,
-      order_by: [asc: u.name],
-      offset: ^((String.to_integer(attrs["np"]) - 1) * String.to_integer(attrs["nr"])),
-      limit: ^attrs["nr"]
-  end
-
-  def count_users() do
-    query = from u in User, select: count(u)
-    Repo.one(query)
+    User
+    |> where([u], ilike(u.name, ^search_term))
+    |> or_where([u], ilike(u.lastname, ^search_term))
+    |> order_by(asc: :name)
+    |> __MODULE__.page(page, per_page)
   end
 end

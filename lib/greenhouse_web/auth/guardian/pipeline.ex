@@ -4,9 +4,9 @@ defmodule GreenhouseWeb.Auth.Guardian.Pipeline do
     error_handler: GreenhouseWeb.Auth.Guardian.ErrorHandler,
     module: GreenhouseWeb.Auth.Guardian.Guardian
 
-  plug Guardian.Plug.VerifyHeader
+  plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
   plug Guardian.Plug.EnsureAuthenticated
-  plug Guardian.Plug.LoadResource
+  plug Guardian.Plug.LoadResource, allow: true
   plug :assign_current_user
 
   defp assign_current_user(conn, _) do

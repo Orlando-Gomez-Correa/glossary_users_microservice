@@ -93,4 +93,31 @@ defmodule GreenhouseWeb.Auth.Auth do
         raise "Boom (#{inspect(other)})"
     end
   end
+
+  def reset_password(auth0_id, password) do
+    {:ok, token} = get_token()
+
+    url = "https://orlando-greenhouse.us.auth0.com/api/v2/users/#{auth0_id}"
+
+    body =
+      {:form,
+       [
+         password: password
+       ]}
+
+    headers = [{"Authorization", "Bearer #{token}"}, {"content-type", "application/json"}]
+
+    result = HTTPoison.patch!(url, body, headers, [])
+
+    case result do
+      %HTTPoison.Response{status_code: 200, body: body} ->
+        {:ok, Jason.decode!(body)}
+
+      %HTTPoison.Response{status_code: 404, body: body} ->
+        {:error, Jason.decode!(body)}
+
+      other ->
+        raise "Boom (#{inspect(other)})"
+    end
+  end
 end

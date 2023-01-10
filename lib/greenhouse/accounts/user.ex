@@ -56,6 +56,7 @@ defmodule Greenhouse.Accounts.User do
     |> validate_format(:name, ~r{^[a-zA-ZÀ-ÿ ]+$})
     |> validate_format(:lastname, ~r{^[a-zA-ZÀ-ÿ ]+$})
     |> validate_format(:email, ~r{^[^@]+@[^@]+\.[a-zA-Z]+$}, message: "Type a valid e-mail")
+    |> validate_number(:phone, greater_than: 0)
     |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email, message: "Email already exist")
   end
