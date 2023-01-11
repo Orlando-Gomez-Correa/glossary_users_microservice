@@ -655,21 +655,4 @@ defmodule GreenhouseWeb.UserController do
     user = Guardian.Plug.current_resource(conn)
     conn |> render("user.json", user: user)
   end
-
-  #   def create(conn, %{"user" => user_params}) do
-  #   with {:ok, %User{} = user} <- Accounts.create_user(user_params),
-  #        {:ok, token, _claims} <- Guardian.encode_and_sign(user) do
-  #     conn |> render("jwt.json", jwt: token)
-  #   end
-  # end
-
-  #   def create(conn, params) do
-  #   with {:ok, user} <- Accounts.create_user(params),
-  #        {:ok, _email} <- EmailServer.send_inserted_user(user) do
-  #     conn
-  #     |> put_status(:created)
-  #     |> put_resp_header("location", Routes.user_path(conn, :show_user, user))
-  #     |> render("show.json", %{user: user})
-  #   end
-  # end
 end

@@ -2,12 +2,6 @@ defmodule GreenhouseWeb.Router do
   use GreenhouseWeb, :router
 
   pipeline :api do
-    plug CORSPlug,
-      send_preflight_response?: false,
-      origin: [
-        "http://localhost:3001"
-      ]
-
     plug :accepts, ["json"]
   end
 
