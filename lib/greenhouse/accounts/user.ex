@@ -36,7 +36,6 @@ defmodule Greenhouse.Accounts.User do
     |> cast(attrs, [
       :birthday,
       :email,
-      :image,
       :is_admin,
       :language,
       :lastname,
@@ -58,7 +57,6 @@ defmodule Greenhouse.Accounts.User do
     |> validate_format(:email, ~r{^[^@]+@[^@]+\.[a-zA-Z]+$}, message: "Type a valid e-mail")
     |> update_change(:email, &String.downcase/1)
     |> unique_constraint(:email, message: "Email already exist")
-    |> cast_attachments(attrs, [:image], allow_paths: true)
   end
 
   def add_auth0_id_changeset(user, attrs) do
@@ -83,6 +81,5 @@ defmodule Greenhouse.Accounts.User do
   def avatar_changeset(user, attrs) do
     user
     |> cast(attrs, [])
-    |> cast_attachments(attrs, [:image], allow_paths: true)
   end
 end

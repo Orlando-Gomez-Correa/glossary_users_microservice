@@ -446,10 +446,10 @@ defmodule GreenhouseWeb.UserController do
     with {:ok, user} <- Accounts.update_user(user, params) do
       render(conn, "show.json", %{user: user})
     else
-      {:error, _error} ->
+      {:error, error} ->
         conn
         |> put_status(400)
-        |> json(%{error: "Bad Request"})
+        |> json(%{error: error})
         |> IO.inspect()
     end
   end
@@ -612,17 +612,17 @@ defmodule GreenhouseWeb.UserController do
     response(422, "Unprocessable Entity", Schema.ref(:Error))
   end
 
-  def upload_avatar(conn, params) do
+  def upload_avatar(conn, %{"image" => image}) do
     user = Accounts.get_user!(conn.path_params["id"])
+    # |> IO.inspect()
 
-    with {:ok, user} <- Accounts.update_user(user, params) do
+    with {:ok, user} <- Accounts.update_user_avatar(user, image) do
       render(conn, "show.json", %{user: user})
     else
-      {:error, _error} ->
+      {:error, error} ->
         conn
         |> put_status(400)
-        |> json(%{error: "Bad Request"})
-        |> IO.inspect()
+        |> json(%{error: error})
     end
   end
 
