@@ -80,6 +80,8 @@ defmodule Greenhouse.Accounts.User do
 
   def avatar_changeset(user, attrs) do
     user
-    |> cast(attrs, [])
+    |> cast(attrs, [:image])
+
+    # |> cast_attachments(attrs, [:image], allow_paths: true)
   end
 end
