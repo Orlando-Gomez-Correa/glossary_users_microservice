@@ -615,7 +615,7 @@ defmodule GreenhouseWeb.UserController do
   def upload_avatar(conn, params) do
     user = Accounts.get_user!(conn.path_params["id"])
 
-    with {:ok, user} <- Accounts.update_user_avatar(user, params) do
+    with {:ok, user} <- Accounts.update_user(user, params) do
       render(conn, "show.json", %{user: user})
     else
       {:error, _error} ->
